@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian Praktik Perawatan Baterai 12V - Kelas X TKR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        @keyframes pulse-red {
+            0%, 100% { background-color: rgba(239, 68, 68, 0.2); }
+            50% { background-color: rgba(239, 68, 68, 0.6); }
+        }
+        .cheat-warning-flash {
+            animation: pulse-red 1s infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700 sticky top-0 z-40 px-4 py-3">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Dual Logos: Logo SMK Karya Bahana Mandiri & Logo TKR -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <div class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-700 p-1 flex items-center justify-center shadow-lg">
+                        <img src="https://cdn.imagetourls.com/uploads/tyImg/mGFfc9u4.png" 
+                             alt="Logo SMK Karya Bahana Mandiri" 
+                             class="w-full h-full object-contain"
+                             onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/fbbf24?text=SMK+KBM';">
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-700 p-1 flex items-center justify-center shadow-lg">
+                        <img src="https://cdn.imagetourls.com/uploads/tyImg/XYsvlsEW.png" 
+                             alt="Logo Jurusan TKR" 
+                             class="w-full h-full object-contain"
+                             onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/3b82f6?text=TKR';">
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm md:text-base text-white leading-tight">Ujian DDTO - Perawatan Baterai Mobil 12V</h1>
+                    <p class="text-xs text-slate-400">SMK Karya Bahana Mandiri • Kelas X TKR • KKM: <span class="text-amber-400 font-semibold">75</span></p>
+                </div>
+            </div>
+
+            <!-- Header Info (Shown during exam) -->
+            <div id="headerExamInfo" class="hidden flex items-center gap-4">
+                <div class="bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 text-right">
+                    <span class="block text-[10px] text-slate-400 uppercase font-semibold">Sisa Waktu PG</span>
+                    <span id="pgTimerText" class="font-mono text-base md:text-lg font-bold text-amber-400">40:00</span>
+                </div>
+                <div class="bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 text-right hidden md:block">
+                    <span class="block text-[10px] text-slate-400 uppercase font-semibold">Waktu Total Ex.</span>
+                    <span id="totalTimerText" class="font-mono text-base font-semibold text-emerald-400">90:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-3 md:p-6">
+        
+        <!-- SECTION 1: REGISTRATION / BERANDA -->
+        <div id="viewRegistration" class="w-full max-w-xl bg-slate-800 rounded-2xl border border-slate-700 p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="text-center mb-6">
+                <!-- Registration Section Dual Logo Header -->
+                <div class="flex justify-center items-center gap-3 mb-3">
+                    <img src="https://cdn.imagetourls.com/uploads/tyImg/mGFfc9u4.png" 
+                         alt="Logo SMK Karya Bahana Mandiri" 
+                         class="w-16 h-16 object-contain drop-shadow-lg"
+                         onerror="this.onerror=null; this.src='https://placehold.co/120x120/1e293b/fbbf24?text=SMK+KBM';">
+                    <img src="https://cdn.imagetourls.com/uploads/tyImg/XYsvlsEW.png" 
+                         alt="Logo Jurusan TKR" 
+                         class="w-16 h-16 object-contain drop-shadow-lg"
+                         onerror="this.onerror=null; this.src='https://placehold.co/120x120/1e293b/3b82f6?text=TKR';">
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 inline-block mb-2">
+                    SMK KARYA BAHANA MANDIRI • TEKNIK KENDARAAN RINGAN
+                </span>
+                <h2 class="text-2xl font-bold text-white">Portal Uji Praktik Baterai</h2>
+                <p class="text-sm text-slate-400 mt-1">Lengkapi data diri untuk memulai ujian praktik perawatan baterai basah & kering 12V.</p>
+            </div>
+
+            <form id="formRegistration" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Nama Lengkap Siswa</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="text" id="inputStudentName" required placeholder="Masukkan nama sesuai presensi..."
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Kelas</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-graduation-cap absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                            <select id="selectStudentClass" required class="w-full bg-slate-900 border border-slate-700 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-blue-500 transition appearance-none">
+                                <option value="" disabled selected>Pilih Kelas...</option>
+                                <option value="X TKR 1">X TKR 1</option>
+                                <option value="X TKR 2">X TKR 2</option>
+                                <option value="X TKR 3">X TKR 3</option>
+                                <option value="X TKR 4">X TKR 4</option>
+                                <option value="X TKR 5">X TKR 5</option>
+                                <option value="X TKR 6">X TKR 6</option>
+                                <option value="X TKR 7">X TKR 7</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Kelompok Praktik</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-users-gear absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                            <select id="selectStudentGroup" required class="w-full bg-slate-900 border border-slate-700 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-blue-500 transition appearance-none">
+                                <option value="" disabled selected>Pilih Kelompok...</option>
+                                <script>
+                                    for(let i=1; i<=10; i++) {
+                                        document.write(`<option value="${i}">Kelompok ${i}</option>`);
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 text-xs text-amber-200 space-y-1.5 mt-4">
+                    <p class="font-bold text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-sm"></i> Peraturan Anti-Kecurangan & Ketentuan:
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-slate-300">
+                        <li>Soal PG (25 Soal) dikerjakan dalam <span class="text-amber-400 font-semibold">40 Menit</span>.</li>
+                        <li>Soal Essai (5 Soal) wajib ditulis **SOAL & JAWABANNYA** di <span class="text-amber-400 font-semibold">Buku Tulis Praktik</span>, difoto/diunggah di aplikasi, lalu buku dikumpulkan di <span class="text-amber-400 font-semibold">Meja Instruktur sesuai Kelompok</span>.</li>
+                        <li>Setiap Kelompok (1-10) mendapatkan **paket variasi acak soal yang berbeda**.</li>
+                        <li>Sistem mengaktifkan **Layar Penuh Automatic**. Pindah tab/aplikasi max 3x akan membatalkan ujian!</li>
+                        <li>Batas Nilai Kompeten (KKM) = <span class="text-emerald-400 font-bold">75</span> (Kesempatan Remidi max 3x).</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition transform active:scale-95 flex items-center justify-center gap-2 mt-2">
+                    <i class="fa-solid fa-play"></i> Mulai Ujian Praktik
+                </button>
+            </form>
+        </div>
+
+        <!-- SECTION 2: EXAM INTERFACE (PG + ESSAY) -->
+        <div id="viewExam" class="hidden w-full max-w-5xl bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[550px]">
+            
+            <!-- Left Sidebar Navigation -->
+            <div class="w-full md:w-64 bg-slate-900/60 p-4 border-b md:border-b-0 md:border-r border-slate-700 flex flex-col justify-between shrink-0">
+                <div>
+                    <div class="mb-4">
+                        <p id="dispStudentMeta" class="text-xs text-blue-400 font-semibold">Fulan • X TKR 1</p>
+                        <p id="dispGroupMeta" class="text-sm font-bold text-white">Kelompok Praktik #1</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">Navigasi Pilihan Ganda</span>
+                        <div id="gridQuestionNav" class="grid grid-cols-5 gap-1.5 max-h-48 overflow-y-auto custom-scrollbar p-1 bg-slate-900/80 rounded-lg border border-slate-800">
+                            <!-- JS dynamic grid buttons -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">Navigasi Essai</span>
+                        <div id="gridEssayNav" class="flex gap-1.5 p-1 bg-slate-900/80 rounded-lg border border-slate-800">
+                            <!-- JS dynamic essay buttons -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-800">
+                    <button id="btnSubmitExam" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition">
+                        <i class="fa-solid fa-check-circle"></i> Selesaikan & Kirim
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Question Content Area -->
+            <div class="flex-grow p-5 md:p-8 flex flex-col justify-between overflow-y-auto custom-scrollbar max-h-[80vh]">
+                
+                <!-- Multiple Choice Container -->
+                <div id="containerPGQuestion" class="space-y-6">
+                    <div class="flex justify-between items-center border-b border-slate-700/60 pb-3">
+                        <span id="dispQNumber" class="text-sm font-bold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                            Soal PG #1 / 25
+                        </span>
+                        <span class="text-xs text-slate-400">Bobot PG: 70% dari Total Nilai</span>
+                    </div>
+
+                    <!-- Dynamic Question Text & Interactive Visuals -->
+                    <div>
+                        <h3 id="dispQText" class="text-base md:text-lg font-medium text-slate-100 leading-relaxed mb-4">
+                            Loading pertanyaan...
+                        </h3>
+
+                        <!-- Practical Interactive Visual Display (e.g. Avometer / Hydrometer) -->
+                        <div id="dispPracticalVisual" class="hidden my-4 p-4 bg-slate-900 border border-slate-700 rounded-xl flex flex-col items-center justify-center">
+                            <!-- Canvas or Interactive Instrument Mockup -->
+                        </div>
+                    </div>
+
+                    <!-- Options List -->
+                    <div id="containerOptions" class="space-y-2.5">
+                        <!-- JS dynamic radio options -->
+                    </div>
+
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-700/50">
+                        <button id="btnPrevQ" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-semibold text-white transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+                        </button>
+                        <button id="btnNextQ" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-semibold text-white transition flex items-center gap-2">
+                            Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Essay Container -->
+                <div id="containerEssayQuestion" class="hidden space-y-6">
+                    <div class="flex justify-between items-center border-b border-slate-700/60 pb-3">
+                        <span id="dispEssayNumber" class="text-sm font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                            Soal Essai #1 / 5
+                        </span>
+                        <span class="text-xs text-amber-400 font-medium flex items-center gap-1.5">
+                            <i class="fa-solid fa-book-bookmark"></i> Wajib Tulis Soal & Jawaban di Buku Tulis
+                        </span>
+                    </div>
+
+                    <div>
+                        <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 mb-4 text-xs text-amber-200 flex items-start gap-3">
+                            <i class="fa-solid fa-circle-info text-amber-400 text-lg shrink-0 mt-0.5"></i>
+                            <div class="space-y-1">
+                                <p class="font-bold text-amber-300">PETUNJUK PENGERJAAN SOAL ESSAI PRAKTIK:</p>
+                                <ol class="list-decimal list-inside space-y-1 text-slate-300">
+                                    <li>Tuliskan **SOAL** dan **JAWABAN** secara lengkap, sistematis, dan rapi pada **Buku Tulis Praktik**.</li>
+                                    <li>Foto lembar jawaban di buku tulis Anda lalu **Upload/Unggah Foto Jawaban** pada tombol di bawah.</li>
+                                    <li>Buku Tulis **WAJIB dikumpulkan di MEJA INSTRUKTUR** sesuai urutan **KELOMPOK PRAKTIK** Anda setelah ujian selesai.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <h3 id="dispEssayText" class="text-base md:text-lg font-medium text-slate-100 leading-relaxed mb-4 bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+                            Loading pertanyaan essai...
+                        </h3>
+                    </div>
+
+                    <!-- Upload Form & Confirmation for physical notebook work -->
+                    <div class="p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                                <i class="fa-solid fa-camera text-blue-400 mr-1"></i> Unggah Foto / File Jawaban Buku Tulis (Soal #<span id="dispEssayUploadNum">1</span>)
+                            </label>
+                            <div class="flex flex-col sm:flex-row items-center gap-3">
+                                <label class="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold cursor-pointer transition flex items-center justify-center gap-2 shadow-md">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Pilih Foto Buku Tulis
+                                    <input type="file" id="inputEssayFile" accept="image/*,.pdf" class="hidden">
+                                </label>
+                                <span id="dispEssayFileName" class="text-xs text-slate-400 truncate max-w-xs italic">Belum ada file diunggah</span>
+                            </div>
+                            <div id="previewEssayImgContainer" class="hidden mt-3 p-2 bg-slate-950 border border-slate-800 rounded-lg max-w-xs relative">
+                                <img id="imgEssayPreview" src="" alt="Preview Jawaban" class="w-full h-32 object-cover rounded">
+                                <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded font-bold shadow">
+                                    <i class="fa-solid fa-check"></i> Terupload
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-800">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="chkEssayDone" class="w-5 h-5 mt-0.5 rounded border-slate-700 text-amber-600 focus:ring-amber-500 bg-slate-800 shrink-0">
+                                <span class="text-xs md:text-sm text-slate-200 leading-snug">
+                                    Saya telah menuliskan **SOAL dan JAWABAN** ini di buku tulis praktik dengan rapi dan bersiap mengumpulkannya ke **Meja Instruktur Kelompok <span id="dispEssayGroupNote">1</span>**.
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-700/50">
+                        <button id="btnPrevEssay" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-semibold text-white transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> Essai Sebelumnya
+                        </button>
+                        <button id="btnNextEssay" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 rounded-lg text-xs font-semibold text-white transition flex items-center gap-2">
+                            Essai Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SECTION 3: RESULT & CERTIFICATE GENERATION -->
+        <div id="viewResult" class="hidden w-full max-w-2xl bg-slate-800 rounded-2xl border border-slate-700 p-6 md:p-8 shadow-2xl text-center space-y-6">
+            
+            <!-- Result Certificate Card (Capturable via html2canvas) -->
+            <div id="certificateCard" class="bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-slate-700 p-6 md:p-8 rounded-2xl text-left relative overflow-hidden">
+                <div class="flex justify-between items-start border-b border-slate-800 pb-4 mb-4">
+                    <div class="flex items-center gap-3">
+                        <!-- Dual Logos on Certificate -->
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <div class="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 p-1 flex items-center justify-center">
+                                <img src="https://cdn.imagetourls.com/uploads/tyImg/mGFfc9u4.png" 
+                                     alt="Logo SMK Karya Bahana Mandiri" 
+                                     class="w-full h-full object-contain"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/fbbf24?text=SMK+KBM';">
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 p-1 flex items-center justify-center">
+                                <img src="https://cdn.imagetourls.com/uploads/tyImg/XYsvlsEW.png" 
+                                     alt="Logo Jurusan TKR" 
+                                     class="w-full h-full object-contain"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/3b82f6?text=TKR';">
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-base md:text-lg font-bold text-white uppercase tracking-wide">Lembar Hasil Uji Praktik</h2>
+                            <p class="text-xs text-slate-400">SMK KARYA BAHANA MANDIRI • TEKNIK KENDARAAN RINGAN</p>
+                            <p class="text-[11px] text-blue-400 font-medium">Dasar-Dasar Teknik Otomotif (DDTO) • Perawatan Baterai 12V</p>
+                        </div>
+                    </div>
+                    <span id="badgeStatus" class="px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider">
+                        KOMPETEN
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-xs mb-6 bg-slate-800/60 p-3.5 rounded-xl border border-slate-800">
+                    <div>
+                        <span class="text-slate-400 block">Nama Siswa:</span>
+                        <span id="resName" class="font-bold text-white text-sm">Fulan</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Kelas / Kelompok:</span>
+                        <span id="resClassGroup" class="font-bold text-white text-sm">X TKR 1 / Kelompok 1</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Tanggal Pengerjaan:</span>
+                        <span id="resDate" class="font-semibold text-slate-200">21/10/2026</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Percobaan Ke-:</span>
+                        <span id="resAttempt" class="font-semibold text-amber-400">1 dari 3</span>
+                    </div>
+                </div>
+
+                <!-- Score Breakdown -->
+                <div class="grid grid-cols-3 gap-3 text-center mb-6">
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">Skor PG (25 Soal)</span>
+                        <span id="resScorePG" class="text-xl font-bold text-blue-400">80</span>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">Verifikasi Upload Essai</span>
+                        <span id="resStatusEssay" class="text-xs font-bold text-amber-400 block mt-1">5/5 Terunggah</span>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">Nilai Akhir Total</span>
+                        <span id="resScoreFinal" class="text-2xl font-black text-emerald-400">80</span>
+                    </div>
+                </div>
+
+                <!-- Competency Statement Box -->
+                <div id="boxCompetencyNote" class="p-3.5 rounded-xl text-xs font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+                    <i class="fa-solid fa-circle-check mr-1 text-emerald-400"></i> Siswa dinyatakan **KOMPETEN** karena telah memenuhi KKM (>= 75). Simpan bukti hasil uji ini dan kumpulkan buku tulis di Meja Instruktur Kelompok.
+                </div>
+            </div>
+
+            <!-- Action Buttons for PDF / JPG Export & Retake -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button id="btnDownloadJPG" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-image"></i> Simpan Gambar (JPG/PNG)
+                </button>
+                <button id="btnDownloadPDF" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-pdf"></i> Unduh Laporan PDF
+                </button>
+                <button id="btnRetryExam" class="hidden flex-1 py-3 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-amber-600/30 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Ulangi Ujian (Remidi)
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="modalCheatWarning" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 border-2 border-red-500 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
+            <div class="w-16 h-16 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center mx-auto text-3xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Peringatan Kecurangan DETEKSI!</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Anda terdeteksi **keluar dari layar ujian / berpindah tab/aplikasi**. Ujian ini wajib dilakukan dalam mode Layar Penuh (Fullscreen).
+            </p>
+            <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-red-300 text-xs font-semibold">
+                Pelanggaran Ke-: <span id="dispCheatCount" class="font-extrabold text-white text-sm">1</span> dari 3 Max.
+                <p class="text-[10px] font-normal text-slate-400 mt-0.5">Jika melebihi 3x, ujian akan dibatalkan secara otomatis.</p>
+            </div>
+            <button id="btnCloseCheatModal" class="w-full py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl text-xs transition">
+                Kembali & Lanjutkan Ujian
+            </button>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 border-t border-slate-800 text-center py-3 text-xs text-slate-500">
+        &copy; 2026 Mapel DDTO Kelas X TKR • Kurikulum Merdeka Otomotif
+    </footer>
+
+    <script>
+        const KKM = 75;
+        let attemptCount = 1;
+        let cheatViolations = 0;
+        let currentQuestionIdx = 0;
+        let currentEssayIdx = 0;
+        let isEssayMode = false;
+
+        let pgTimerInterval = null;
+        let totalTimerInterval = null;
+        let pgSecondsRemaining = 40 * 60; // 40 mins for PG
+        let totalSecondsRemaining = 90 * 60; // 90 mins Total
+
+        let studentProfile = {
+            name: '',
+            classVal: '',
+            groupVal: 1
+        };
+
+        // Master Questions Bank for Battery Maintenance (Wet & Dry 12V)
+        const masterPGQuestions = [
+            {
+                id: 1,
+                q: "Pada pemeriksaan baterai basah 12V, hasil pengukuran berat jenis elektrolit sel menunjukkan angka 1,280 pada suhu 20°C. Kesimpulan dari kondisi baterai tersebut adalah...",
+                options: ["Baterai terisi penuh (100%)", "Baterai terisi 75%", "Baterai terisi 50%", "Baterai memerlukan pengisian cepat", "Elektrolit baterai murni air suling"],
+                answer: 0,
+                type: "hydrometer",
+                val: 1.280
+            },
+            {
+                id: 2,
+                q: "Sebuah baterai mobil 12V diukur tegangan tanpa beban (Open Circuit Voltage) menggunakan multimeter digital/Avometer dan menunjukkan angka 12,60 Volt. Kondisi kapasitas baterai adalah...",
+                options: ["100% Terisi Penuh", "75% Terisi", "50% Terisi", "25% Terisi", "Baterai Rusak Total/Soak"],
+                answer: 0,
+                type: "avometer",
+                val: "12.60 V"
+            },
+            {
+                id: 3,
+                q: "Ketika melakukan pengujian tegangan baterai basah saat mesin distarter (cranking test), tegangan minimal yang diizinkan agar baterai dinyatakan masih dalam kondisi baik adalah...",
+                options: ["9,6 Volt", "12,6 Volt", "13,8 Volt", "14,4 Volt", "8,0 Volt"],
+                answer: 0
+            },
+            {
+                id: 4,
+                q: "Tindakan keselamatan kerja (K3) yang paling krusial saat menangani asam sulfat (H2SO4) pada baterai basah adalah menggunakan...",
+                options: ["Kacamata pelindung (Safety Goggles) & Sarung tangan karet", "Masker kain biasa dan sarung tangan kain", "Helm las dan sepatu booth besi", "Apron kain sintetis tanpa sarung tangan", "Pelindung telinga (Earplug)"],
+                answer: 0
+            },
+            {
+                id: 5,
+                q: "Penyebab utama timbulnya serbuk putih atau kerak hijau pada kutub/terminal baterai timbal-asam adalah...",
+                options: ["Oksidasi/korosi akibat uap asam sulfat dan kelembaban", "Kelebihan air suling saat pengisian", "Reaksi perekat sel baterai", "Tegangan pengisian terlalu rendah", "Penggunaan kabel berdiameter terlalu besar"],
+                answer: 0
+            },
+            {
+                id: 6,
+                q: "Untuk membersihkan endapan kerak sulfasi pada terminal baterai secara efektif dan aman digunakan cairan...",
+                options: ["Air hangat bercampur soda kue (natrium bikarbonat)", "Bensin premium/Pertalite", "Minyak rem DOT 4", "Oli mesin bekas", "Cairan pembersih kaca aerosol"],
+                answer: 0
+            },
+            {
+                id: 7,
+                q: "Baterai bebas perawatan (Maintenance Free / Dry Battery) menggunakan bahan kalsium pada pelatnya. Keunggulan utamanya dibandingkan baterai basah konvensional adalah...",
+                options: ["Tingkat penguapan air sangat rendah & self-discharge kecil", "Memerlukan penambahan air aki secara berkala", "Harga jauh lebih murah", "Dapat diisi ulang cairan elektrolit cair secara bebas", "Memiliki ventilasi terbuka berkapasitas besar"],
+                answer: 0
+            },
+            {
+                id: 8,
+                q: "Alat hidrometer digunakan untuk mengukur berat jenis elektrolit baterai basah. Pembacaan posisi pelampung hidrometer yang benar diposisikan setinggi...",
+                options: ["Garis mata lurus sejajar dengan permukaan cairan (miniscus)", "Dari sudut atas 45 derajat", "Dari bawah tabung hidrometer", "Sambil mengguncang tabung hydrometer", "Tanpa melepas hidrometer dari lubang sel"],
+                answer: 0
+            },
+            {
+                id: 9,
+                q: "Nilai standar berat jenis elektrolit baterai basah mobil pada suhu standar 20°C yang ideal adalah...",
+                options: ["1,260 - 1,280", "1,000 - 1,100", "1,350 - 1,400", "1,150 - 1,200", "1,500 - 1,600"],
+                answer: 0
+            },
+            {
+                id: 10,
+                q: "Jika hasil pengukuran berat jenis elektrolit baterai menunjukkan angka 1,120 pada semua sel, maka tindakan perbaikan yang wajib dilakukan adalah...",
+                options: ["Melakukan pengisian lambat (slow charging)", "Menambahkan asam pekat H2SO4 murni", "Mengganti seluruh air aki dengan air suling murni", "Membuang seluruh elektrolit dan mengganti baru", "Mengamplas terminal baterai"],
+                answer: 0
+            },
+            {
+                id: 11,
+                q: "Pada multimeter analog/digital, posisi selektor yang tepat untuk mengukur tegangan baterai mobil 12V adalah...",
+                options: ["DCV pada skala 20V / 50V", "ACV pada skala 250V", "DCA pada skala 10A", "Ohm (Ω) pada skala x10", "ACV pada skala 10V"],
+                answer: 0,
+                type: "avometer",
+                val: "DCV 20V"
+            },
+            {
+                id: 12,
+                q: "Pengisian cepat (Fast Charging) pada baterai 12V 40Ah dilakukan dengan arus sebesar 10% - 50% dari kapasitas. Besar arus pengisian cepat yang direkomendasikan adalah...",
+                options: ["20 Ampere s.d 40 Ampere", "4 Ampere", "1 Ampere", "100 Ampere", "0,4 Ampere"],
+                answer: 0
+            },
+            {
+                id: 13,
+                q: "Fungsi dari lubang ventilasi (vent plug) pada penutup sel baterai basah adalah...",
+                options: ["Saluran pembuangan gas hidrogen hasil reaksi kimia", "Tempat memasukkan kabel jumper starter", "Menjaga agar air suling tidak membeku", "Menambah tegangan output baterai", "Tempat mengukur arus starter"],
+                answer: 0
+            },
+            {
+                id: 14,
+                q: "Saat melepaskan kabel baterai dari kendaraan, urutan pelepasan yang aman untuk mencegah korsleting (short circuit) adalah...",
+                options: ["Kabel Negatif (-) terlebih dahulu, baru Kabel Positif (+)", "Kabel Positif (+) terlebih dahulu, baru Kabel Negatif (-)", "Boleh bebas memilih kabel mana saja", "Kedua kabel dilepas bersamaan dengan tang", "Kabel grounding bodi dilepas terakhir"],
+                answer: 0
+            },
+            {
+                id: 15,
+                q: "Sebaliknya, saat memasang kembali baterai ke kendaraan, urutan pemasangan kabel yang benar adalah...",
+                options: ["Kabel Positif (+) terlebih dahulu, baru Kabel Negatif (-)", "Kabel Negatif (-) terlebih dahulu, baru Kabel Positif (+)", "Kabel Negatif (-) disambung ke alternator langsung", "Kabel Positif (+) disambung ke rangka kendaraan", "Bebas sesuai kemudahan mekanik"],
+                answer: 0
+            },
+            {
+                id: 16,
+                q: "Indikator mata kucing (Magic Eye) pada baterai kering/MF menunjukkan warna HIJAU. Ini menandakan bahwa...",
+                options: ["Kondisi elektrolit dan isi setrum baterai BAIK/CUKUP", "Baterai perlu disetrum ulang", "Air aki habis/kurang", "Baterai mengalami kelebihan beban", "Baterai harus segera diganti"],
+                answer: 0
+            },
+            {
+                id: 17,
+                q: "Jika indikator Magic Eye pada baterai MF menunjukkan warna MERAH / BENING, artinya...",
+                options: ["Air aki / kondisi isi strum kurang, perlu di-charge atau diganti", "Baterai dalam kondisi super prima", "Tegangan baterai diatas 14 Volt", "Baterai dalam proses pengisian otomatis", "Kabel baterai terbalik"],
+                answer: 0
+            },
+            {
+                id: 18,
+                q: "Batas garis atas dan garis bawah ketinggian cairan elektrolit pada fisik wadah baterai basah disebut...",
+                options: ["UPPER LEVEL dan LOWER LEVEL", "MAX LEVEL dan MIN LEVEL", "TOP HIGH dan BOTTOM LOW", "FULL LEVEL dan EMPTY LEVEL", "OVER LEVEL dan UNDER LEVEL"],
+                answer: 0
+            },
+            {
+                id: 19,
+                q: "Cairan yang digunakan khusus untuk MENAMBAHKAN elektrolit baterai basah yang berkurang karena penguapan adalah...",
+                options: ["Air suling / Aquades (Tutup Botol Biru)", "Air Zuur / Asam Sulfat (Tutup Botol Merah)", "Air sumur / Air keran", "Air AC kondensasi kotor", "Cairan Coolant radiator"],
+                answer: 0
+            },
+            {
+                id: 20,
+                q: "Air Zuur (H2SO4) hanya digunakan saat...",
+                options: ["Pengisian pertama kali pada baterai baru yang masih kosong/kering", "Setiap kali menambah air baterai yang berkurang", "Membersihkan kutub terminal baterai", "Menguji kapasitas pengisian alternator", "Mencuci plat sel baterai bekas"],
+                answer: 0
+            },
+            {
+                id: 21,
+                q: "Alat tes beban baterai (Battery Load Tester) menguji kemampuan baterai dengan cara memberikan beban arus besar selama 10-15 detik. Jika tegangan jatuh di bawah 9,6V, berarti...",
+                options: ["Kemampuan simpan/Kapasitas baterai sudah lemah/rusak", "Baterai sangat prima", "Pengisian alternator terlalu tinggi", "Sistem starter kendaraan berfungs baik", "Diode rectifier alternator bocor"],
+                answer: 0
+            },
+            {
+                id: 22,
+                q: "Sebuah baterai mobil berkapasitas 60 Ah hendak diisi dengan pengisian lambat (slow charging). Arus pengisian standar (10% x Kapasitas) yang tepat diset pada Battery Charger adalah...",
+                options: ["6 Ampere", "12 Ampere", "60 Ampere", "0,6 Ampere", "30 Ampere"],
+                answer: 0
+            },
+            {
+                id: 23,
+                q: "Reaksi kimia yang terjadi di dalam sel baterai timbal-asam saat proses pengosongan (discharging/digunakan) menghasilkan...",
+                options: ["Plat Positif & Negatif menjadi PbSO4, elektrolit menjadi H2O", "Plat Positif menjadi PbO2 murni", "Elektrolit menjadi H2SO4 pekat", "Plat Negatif menjadi Kalsium", "Timbulnya endapan tembaga murni"],
+                answer: 0
+            },
+            {
+                id: 24,
+                q: "Pemeriksaan secara visual pada fisik kotak baterai meliputi hal-hal berikut, KECUALI...",
+                options: ["Mengukur kekuatan arus engkol (CCA) dengan Avometer", "Keretakan atau keborocan kotak baterai", "Kebengkakan dinding kotak baterai", "Kebersihan permukaan atas baterai", "Kondisi terminal dari korosi"],
+                answer: 0
+            },
+            {
+                id: 25,
+                q: "Tegangan pengisian sistem pengisian kendaraan (Alternator) saat mesin hidup yang normal untuk mengisi baterai 12V adalah...",
+                options: ["13,8 Volt s.d 14,8 Volt", "11,0 Volt s.d 12,0 Volt", "15,5 Volt s.d 18,0 Volt", "9,0 Volt s.d 10,5 Volt", "24,0 Volt s.d 28,0 Volt"],
+                answer: 0
+            }
+        ];
+
+        // Master Practical Essay Questions (To be written in notebooks)
+        const masterEssayQuestions = [
+            {
+                id: 1,
+                q: "Jelaskan langkah-langkah keselamatan kerja (K3) dan prosedur pemeriksaan fisik (visual) pada baterai basah 12V sebelum dilakukan pengukuran listrik!",
+                guide: "Wajib mencakup: APD (goggles, sarung tangan), cek retak fisik kotak, cek terminal dari korosi, cek kebersihan vent plug, serta ketinggian air aki (Upper-Lower)."
+            },
+            {
+                id: 2,
+                q: "Uraikan tata cara penggunaan Hydrometer untuk mengukur berat jenis elektrolit baterai basah pada ke-6 sel baterai beserta interpretasi hasil ukurnya!",
+                guide: "Mencakup: Cara hisap cairan, posisi sejajar mata, membaca meniscus, standar 1.260-1.280, serta rumus koreksi suhu."
+            },
+            {
+                id: 3,
+                q: "Tuliskan langkah kerja pengukuran tegangan Open Circuit Voltage (OCV) baterai mobil 12V menggunakan Avometer / Multimeter Digital!",
+                guide: "Mencakup: Set selektor di DCV 20V/50V, kalibrasi/zero check, probe merah ke (+), probe hitam ke (-), serta pembacaan nilai tegangan."
+            },
+            {
+                id: 4,
+                q: "Jelaskan perbedaan mendasar antara Baterai Basah (Konvensional) dan Baterai Kering (Maintenance Free / MF) dari segi perawatan, komponen, dan indikator kondisinya!",
+                guide: "Mencakup: Jenis pelat (Timbal-Antimoni vs Timbal-Kalsium), air aki, vent plug, serta magic eye."
+            },
+            {
+                id: 5,
+                q: "Sebuah baterai mobil 12V 50Ah mengalami pengosongan hingga tegangan tersisa 11,8V. Hitunglah besar arus pengisian lambat (Slow Charging) yang direkomendasikan serta sebutkan prosedur pengisiannya secara aman!",
+                guide: "Arus = 10% x 50Ah = 5 Ampere. Prosedur memasang klem charger sebelum colok listrik, lepas vent plug baterai basah, dan ruangan ventilasi memadai."
+            }
+        ];
+
+        // User State Arrays (Shuffled per group)
+        let groupPGQuestions = [];
+        let groupEssayQuestions = [];
+        let userPGAnswers = {};
+        let userEssayCheck = {};
+        let userEssayFiles = {}; // Stores uploaded base64/file info per essay index
+
+        const viewRegistration = document.getElementById('viewRegistration');
+        const viewExam = document.getElementById('viewExam');
+        const viewResult = document.getElementById('viewResult');
+        const formRegistration = document.getElementById('formRegistration');
+
+        // Header info
+        const headerExamInfo = document.getElementById('headerExamInfo');
+        const pgTimerText = document.getElementById('pgTimerText');
+        const totalTimerText = document.getElementById('totalTimerText');
+
+        // Nav elements
+        const gridQuestionNav = document.getElementById('gridQuestionNav');
+        const gridEssayNav = document.getElementById('gridEssayNav');
+        const dispStudentMeta = document.getElementById('dispStudentMeta');
+        const dispGroupMeta = document.getElementById('dispGroupMeta');
+
+        // Question Containers
+        const containerPGQuestion = document.getElementById('containerPGQuestion');
+        const containerEssayQuestion = document.getElementById('containerEssayQuestion');
+        const dispQNumber = document.getElementById('dispQNumber');
+        const dispQText = document.getElementById('dispQText');
+        const dispPracticalVisual = document.getElementById('dispPracticalVisual');
+        const containerOptions = document.getElementById('containerOptions');
+
+        const dispEssayNumber = document.getElementById('dispEssayNumber');
+        const dispEssayText = document.getElementById('dispEssayText');
+        const chkEssayDone = document.getElementById('chkEssayDone');
+
+        // Anti cheat modal
+        const modalCheatWarning = document.getElementById('modalCheatWarning');
+        const dispCheatCount = document.getElementById('dispCheatCount');
+        const btnCloseCheatModal = document.getElementById('btnCloseCheatModal');
+
+        // Pseudo-random generator seeded by Group Number
+        function pseudoRandom(seed) {
+            let value = seed;
+            return function() {
+                value = (value * 9301 + 49297) % 233280;
+                return value / 233280;
+            };
+        }
+
+        function shuffleArrayWithSeed(array, groupNum) {
+            let result = [...array];
+            let myRandom = pseudoRandom(groupNum * 1234);
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(myRandom() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+            return result;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setupAntiCheating();
+        });
+
+        // Handle Registration & Start Exam
+        formRegistration.addEventListener('submit', (e) => {
+            e.preventDefault();
+            studentProfile.name = document.getElementById('inputStudentName').value.trim();
+            studentProfile.classVal = document.getElementById('selectStudentClass').value;
+            studentProfile.groupVal = parseInt(document.getElementById('selectStudentGroup').value);
+
+            if (!studentProfile.name || !studentProfile.classVal || !studentProfile.groupVal) {
+                alert("Harap lengkapi semua data pendaftaran!");
+                return;
+            }
+
+            // Shuffle questions based on Group ID
+            groupPGQuestions = shuffleArrayWithSeed(masterPGQuestions, studentProfile.groupVal);
+            groupEssayQuestions = shuffleArrayWithSeed(masterEssayQuestions, studentProfile.groupVal + 5);
+
+            // Set UI Meta
+            dispStudentMeta.textContent = `${studentProfile.name} • ${studentProfile.classVal}`;
+            dispGroupMeta.textContent = `Kelompok Praktik #${studentProfile.groupVal}`;
+
+            // Request Fullscreen
+            requestFullScreen();
+
+            // Switch Views
+            viewRegistration.classList.add('hidden');
+            viewExam.classList.remove('hidden');
+            headerExamInfo.classList.remove('hidden');
+
+            // Render Nav Grids
+            renderQuestionNavs();
+            
+            // Load Question 0
+            loadPGQuestion(0);
+
+            // Start Timers
+            startTimers();
+        });
+
+        function renderQuestionNavs() {
+            gridQuestionNav.innerHTML = '';
+            groupPGQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `p-2 text-xs font-bold rounded-lg border transition ${userPGAnswers[idx] !== undefined ? 'bg-blue-600 border-blue-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'}`;
+                btn.textContent = idx + 1;
+                btn.onclick = () => {
+                    isEssayMode = false;
+                    loadPGQuestion(idx);
+                };
+                gridQuestionNav.appendChild(btn);
+            });
+
+            gridEssayNav.innerHTML = '';
+            groupEssayQuestions.forEach((eq, idx) => {
+                const btn = document.createElement('button');
+                const isUploaded = !!userEssayFiles[idx];
+                const isChecked = !!userEssayCheck[idx];
+                let btnStyle = 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700';
+                if (isUploaded && isChecked) {
+                    btnStyle = 'bg-emerald-600 border-emerald-400 text-white';
+                } else if (isChecked || isUploaded) {
+                    btnStyle = 'bg-amber-600 border-amber-400 text-white';
+                }
+
+                btn.className = `flex-1 py-2 text-xs font-bold rounded-lg border transition ${btnStyle}`;
+                btn.textContent = `E${idx + 1}`;
+                btn.onclick = () => {
+                    isEssayMode = true;
+                    loadEssayQuestion(idx);
+                };
+                gridEssayNav.appendChild(btn);
+            });
+        }
+
+        function loadPGQuestion(index) {
+            currentQuestionIdx = index;
+            isEssayMode = false;
+
+            containerPGQuestion.classList.remove('hidden');
+            containerEssayQuestion.classList.add('hidden');
+
+            const item = groupPGQuestions[index];
+            dispQNumber.textContent = `Soal PG #${index + 1} / 25`;
+            dispQText.textContent = item.q;
+
+            // Render Visual Simulation if applicable
+            renderPracticalVisual(item);
+
+            // Render Options (A, B, C, D, E)
+            containerOptions.innerHTML = '';
+            const optionPrefixes = ['A', 'B', 'C', 'D', 'E'];
+
+            item.options.forEach((opt, oIdx) => {
+                const isSelected = userPGAnswers[index] === oIdx;
+                const optDiv = document.createElement('div');
+                optDiv.className = `p-3.5 rounded-xl border transition cursor-pointer flex items-center gap-3 ${isSelected ? 'bg-blue-600/20 border-blue-500 text-white' : 'bg-slate-900/60 border-slate-700 text-slate-300 hover:border-slate-500'}`;
+                
+                optDiv.innerHTML = `
+                    <div class="w-7 h-7 rounded-lg font-bold text-xs flex items-center justify-center shrink-0 ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400'}">
+                        ${optionPrefixes[oIdx]}
+                    </div>
+                    <span class="text-xs md:text-sm leading-snug">${opt}</span>
+                `;
+
+                optDiv.onclick = () => {
+                    userPGAnswers[index] = oIdx;
+                    loadPGQuestion(index);
+                    renderQuestionNavs();
+                };
+
+                containerOptions.appendChild(optDiv);
+            });
+
+            // Update Nav Buttons
+            document.getElementById('btnPrevQ').disabled = index === 0;
+            document.getElementById('btnPrevQ').style.opacity = index === 0 ? '0.5' : '1';
+        }
+
+        function renderPracticalVisual(item) {
+            if (item.type === 'hydrometer') {
+                dispPracticalVisual.classList.remove('hidden');
+                dispPracticalVisual.innerHTML = `
+                    <div class="flex items-center gap-4 text-xs">
+                        <div class="w-12 h-36 bg-slate-800 border-2 border-slate-600 rounded-full flex flex-col items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-x-2 bottom-2 top-8 bg-blue-500/30 rounded-lg flex items-center justify-center">
+                                <div class="w-6 h-20 bg-amber-400/80 rounded-full border border-amber-300 flex items-center justify-center text-[10px] font-bold text-slate-900 rotate-90">
+                                    ${item.val}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="font-bold text-blue-400 block mb-1"><i class="fa-solid fa-vial"></i> Simulasi Pembacaan Hidrometer</span>
+                            <p class="text-slate-300">Posisi skala pelampung berada tepat di garis penunjuk <span class="text-amber-400 font-bold">${item.val} g/cm³</span> pada temperatur 20°C.</p>
+                        </div>
+                    </div>
+                `;
+            } else if (item.type === 'avometer') {
+                dispPracticalVisual.classList.remove('hidden');
+                dispPracticalVisual.innerHTML = `
+                    <div class="flex items-center gap-4 text-xs">
+                        <div class="w-40 h-24 bg-slate-900 border-2 border-slate-600 rounded-xl p-2 flex flex-col justify-between items-center shadow-inner">
+                            <div class="text-[10px] text-slate-400 uppercase font-mono">AVOMETER DIGITAL (DCV)</div>
+                            <div class="bg-emerald-950/80 border border-emerald-500/50 w-full text-center py-2 rounded font-mono text-xl font-bold text-emerald-400 tracking-wider">
+                                ${item.val}
+                            </div>
+                            <div class="text-[9px] text-slate-500">Skala Ukur: 20V DC</div>
+                        </div>
+                        <div>
+                            <span class="font-bold text-blue-400 block mb-1"><i class="fa-solid fa-gauge-high"></i> Simulasi Pengukuran Multimeter</span>
+                            <p class="text-slate-300">Layar multimeter menampilkan angka pengukuran OCV terminal baterai 12V saat ini.</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                dispPracticalVisual.classList.add('hidden');
+                dispPracticalVisual.innerHTML = '';
+            }
+        }
+
+        function loadEssayQuestion(index) {
+            currentEssayIdx = index;
+            isEssayMode = true;
+
+            containerPGQuestion.classList.add('hidden');
+            containerEssayQuestion.classList.remove('hidden');
+
+            const item = groupEssayQuestions[index];
+            dispEssayNumber.textContent = `Soal Essai #${index + 1} / 5`;
+            dispEssayText.textContent = item.q;
+            document.getElementById('dispEssayUploadNum').textContent = index + 1;
+            document.getElementById('dispEssayGroupNote').textContent = studentProfile.groupVal;
+
+            chkEssayDone.checked = !!userEssayCheck[index];
+            chkEssayDone.onclick = () => {
+                userEssayCheck[index] = chkEssayDone.checked;
+                renderQuestionNavs();
+            };
+
+            const inputEssayFile = document.getElementById('inputEssayFile');
+            const dispEssayFileName = document.getElementById('dispEssayFileName');
+            const previewEssayImgContainer = document.getElementById('previewEssayImgContainer');
+            const imgEssayPreview = document.getElementById('imgEssayPreview');
+
+            // Reset file input display for current question
+            if (userEssayFiles[index]) {
+                dispEssayFileName.textContent = userEssayFiles[index].name;
+                dispEssayFileName.classList.remove('text-slate-400');
+                dispEssayFileName.classList.add('text-emerald-400', 'font-semibold');
+                if (userEssayFiles[index].dataUrl) {
+                    imgEssayPreview.src = userEssayFiles[index].dataUrl;
+                    previewEssayImgContainer.classList.remove('hidden');
+                } else {
+                    previewEssayImgContainer.classList.add('hidden');
+                }
+            } else {
+                dispEssayFileName.textContent = "Belum ada file diunggah";
+                dispEssayFileName.classList.remove('text-emerald-400', 'font-semibold');
+                dispEssayFileName.classList.add('text-slate-400');
+                previewEssayImgContainer.classList.add('hidden');
+            }
+
+            inputEssayFile.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        userEssayFiles[index] = {
+                            name: file.name,
+                            dataUrl: evt.target.result
+                        };
+                        dispEssayFileName.textContent = file.name;
+                        dispEssayFileName.classList.remove('text-slate-400');
+                        dispEssayFileName.classList.add('text-emerald-400', 'font-semibold');
+                        imgEssayPreview.src = evt.target.result;
+                        previewEssayImgContainer.classList.remove('hidden');
+                        renderQuestionNavs();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            document.getElementById('btnPrevEssay').disabled = index === 0;
+            document.getElementById('btnPrevEssay').style.opacity = index === 0 ? '0.5' : '1';
+        }
+
+        // Navigation Next / Prev Buttons
+        document.getElementById('btnPrevQ').onclick = () => {
+            if (currentQuestionIdx > 0) loadPGQuestion(currentQuestionIdx - 1);
+        };
+        document.getElementById('btnNextQ').onclick = () => {
+            if (currentQuestionIdx < groupPGQuestions.length - 1) {
+                loadPGQuestion(currentQuestionIdx + 1);
+            } else {
+                // Switch to essay automatically when finishing PG
+                isEssayMode = true;
+                loadEssayQuestion(0);
+            }
+        };
+
+        document.getElementById('btnPrevEssay').onclick = () => {
+            if (currentEssayIdx > 0) loadEssayQuestion(currentEssayIdx - 1);
+            else loadPGQuestion(groupPGQuestions.length - 1);
+        };
+        document.getElementById('btnNextEssay').onclick = () => {
+            if (currentEssayIdx < groupEssayQuestions.length - 1) {
+                loadEssayQuestion(currentEssayIdx + 1);
+            } else {
+                alert("Anda berada di akhir soal essai. Silahkan periksa kembali semua jawaban sebelum mengklik 'Selesaikan & Kirim'!");
+            }
+        };
+
+        function startTimers() {
+            // PG Timer (40 Minutes)
+            pgTimerInterval = setInterval(() => {
+                pgSecondsRemaining--;
+                if (pgSecondsRemaining <= 0) {
+                    clearInterval(pgTimerInterval);
+                    pgTimerText.textContent = "00:00";
+                    alert("Waktu khusus Pilihan Ganda (40 Menit) telah habis! Sistem beralih ke bagian Soal Essai Praktik.");
+                    isEssayMode = true;
+                    loadEssayQuestion(0);
+                } else {
+                    const mins = Math.floor(pgSecondsRemaining / 60);
+                    const secs = pgSecondsRemaining % 60;
+                    pgTimerText.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                }
+            }, 1000);
+
+            // Total Exam Timer (90 Minutes)
+            totalTimerInterval = setInterval(() => {
+                totalSecondsRemaining--;
+                if (totalSecondsRemaining <= 0) {
+                    clearInterval(totalTimerInterval);
+                    alert("Waktu total pengerjaan ujian praktik (90 Menit) telah habis! Jawaban Anda akan otomatis dikirim.");
+                    submitExam();
+                } else {
+                    const mins = Math.floor(totalSecondsRemaining / 60);
+                    const secs = totalSecondsRemaining % 60;
+                    totalTimerText.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function setupAntiCheating() {
+            // Disable Right Click
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+            // Disable Copy/Paste and Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (
+                    e.key === 'F12' ||
+                    (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'u' || e.key === 's' || e.key === 'p')) ||
+                    (e.metaKey && (e.key === 'c' || e.key === 'v'))
+                ) {
+                    e.preventDefault();
+                    triggerCheatViolation("Percobaan penyalinan atau pembukaan inspect element terdeteksi!");
+                }
+            });
+
+            // Detect Tab Switch / Window Blur
+            window.addEventListener('blur', () => {
+                if (!viewExam.classList.contains('hidden')) {
+                    triggerCheatViolation("Terdeteksi berpindah jendela / tab browser!");
+                }
+            });
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && !viewExam.classList.contains('hidden')) {
+                    triggerCheatViolation("Terdeteksi meninggalkan halaman ujian!");
+                }
+            });
+
+            btnCloseCheatModal.onclick = () => {
+                modalCheatWarning.classList.add('hidden');
+                requestFullScreen();
+            };
+        }
+
+        function requestFullScreen() {
+            const docElm = document.documentElement;
+            if (docElm.requestFullscreen) docElm.requestFullscreen().catch(() => {});
+            else if (docElm.mozRequestFullScreen) docElm.mozRequestFullScreen().catch(() => {});
+            else if (docElm.webkitRequestFullscreen) docElm.webkitRequestFullscreen().catch(() => {});
+            else if (docElm.msRequestFullscreen) docElm.msRequestFullscreen().catch(() => {});
+        }
+
+        function triggerCheatViolation(msg) {
+            cheatViolations++;
+            dispCheatCount.textContent = cheatViolations;
+            modalCheatWarning.classList.remove('hidden');
+
+            if (cheatViolations >= 3) {
+                alert("Batas pelanggaran kecurangan (3x) telah terlampaui! Ujian dibatalkan dan dikirim secara otomatis.");
+                modalCheatWarning.classList.add('hidden');
+                submitExam();
+            }
+        }
+
+        document.getElementById('btnSubmitExam').onclick = () => {
+            const unansweredPG = groupPGQuestions.length - Object.keys(userPGAnswers).length;
+            const uncheckedEssay = groupEssayQuestions.length - Object.values(userEssayCheck).filter(Boolean).length;
+            const unuploadedEssay = groupEssayQuestions.length - Object.keys(userEssayFiles).length;
+
+            let msg = "Apakah Anda yakin ingin menyelesaikan Ujian Praktik ini?";
+            if (unansweredPG > 0 || uncheckedEssay > 0 || unuploadedEssay > 0) {
+                msg = `Perhatian:\n• ${unansweredPG} soal PG belum dijawab\n• ${unuploadedEssay} lembar foto essai belum diupload\n• ${uncheckedEssay} soal essai belum dikonfirmasi selesai di buku tulis!\n\nPastikan SOAL & JAWABAN ESSAI sudah ditulis di buku dan siap dikumpulkan di Meja Instruktur Kelompok ${studentProfile.groupVal}.\n\nYakin tetap ingin mengirim?`;
+            }
+
+            if (confirm(msg)) {
+                submitExam();
+            }
+        };
+
+        function submitExam() {
+            clearInterval(pgTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            // Calculate PG Score (Scale 0-100)
+            let correctCount = 0;
+            groupPGQuestions.forEach((q, idx) => {
+                if (userPGAnswers[idx] === q.answer) {
+                    correctCount++;
+                }
+            });
+
+            const pgScore = Math.round((correctCount / groupPGQuestions.length) * 100);
+            
+            // Calculate Essay Upload Verification Score (100% if all 5 uploaded & checked, proportional otherwise)
+            let essayCompletedCount = 0;
+            groupEssayQuestions.forEach((_, idx) => {
+                if (userEssayFiles[idx] && userEssayCheck[idx]) {
+                    essayCompletedCount++;
+                } else if (userEssayFiles[idx] || userEssayCheck[idx]) {
+                    essayCompletedCount += 0.5;
+                }
+            });
+            const essayScorePercentage = (essayCompletedCount / groupEssayQuestions.length) * 100;
+
+            // Final Combined Score: PG 70% + Essay Upload & Completeness 30%
+            const finalScore = Math.round((pgScore * 0.7) + (essayScorePercentage * 0.3));
+            const isCompetent = finalScore >= KKM;
+
+            // Populate Result View
+            document.getElementById('resName').textContent = studentProfile.name;
+            document.getElementById('resClassGroup').textContent = `${studentProfile.classVal} / Kelompok ${studentProfile.groupVal}`;
+            
+            const now = new Date();
+            document.getElementById('resDate').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('resAttempt').textContent = `${attemptCount} dari 3`;
+
+            document.getElementById('resScorePG').textContent = pgScore;
+            document.getElementById('resStatusEssay').textContent = `${Object.keys(userEssayFiles).length}/5 Foto Terunggah`;
+            document.getElementById('resScoreFinal').textContent = finalScore;
+
+            const badgeStatus = document.getElementById('badgeStatus');
+            const boxCompetencyNote = document.getElementById('boxCompetencyNote');
+            const btnRetryExam = document.getElementById('btnRetryExam');
+
+            if (isCompetent) {
+                badgeStatus.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40";
+                badgeStatus.textContent = "KOMPETEN";
+
+                boxCompetencyNote.className = "p-3.5 rounded-xl text-xs font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-300";
+                boxCompetencyNote.innerHTML = `<i class="fa-solid fa-circle-check mr-1 text-emerald-400"></i> Selamat! Siswa dinyatakan <strong>KOMPETEN</strong> (Nilai: ${finalScore} >= ${KKM}).<br><span class="text-[11px] text-slate-300 mt-1 block">Silakan kumpulkan Buku Tulis Praktik (Soal & Jawaban) ke <strong>Meja Instruktur Kelompok ${studentProfile.groupVal}</strong> dan simpan bukti sertifikat ini.</span>`;
+                btnRetryExam.classList.add('hidden');
+            } else {
+                badgeStatus.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-red-500/20 text-red-400 border border-red-500/40";
+                badgeStatus.textContent = "TIDAK KOMPETEN";
+
+                boxCompetencyNote.className = "p-3.5 rounded-xl text-xs font-medium bg-red-500/10 border border-red-500/30 text-red-300";
+                boxCompetencyNote.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1 text-red-400"></i> Siswa dinyatakan <strong>TIDAK KOMPETEN</strong> karena Nilai Akhir (${finalScore}) belum mencapai KKM (${KKM}). Wajib melakukan perbaikan/remidi.`;
+
+                if (attemptCount < 3) {
+                    btnRetryExam.classList.remove('hidden');
+                } else {
+                    btnRetryExam.classList.add('hidden');
+                    boxCompetencyNote.innerHTML += `<br><span class="text-[11px] font-bold text-amber-400 mt-1 block">Batas maksimal perbaikan (3x) telah tercapai. Harap hubungi Guru Pengampu DDTO.</span>`;
+                }
+            }
+
+            // Switch Views
+            viewExam.classList.add('hidden');
+            headerExamInfo.classList.add('hidden');
+            viewResult.classList.remove('hidden');
+        }
+
+        document.getElementById('btnRetryExam').onclick = () => {
+            if (attemptCount >= 3) {
+                alert("Kesempatan ujian perbaikan sudah habis (Max 3x).");
+                return;
+            }
+
+            attemptCount++;
+            userPGAnswers = {};
+            userEssayCheck = {};
+            cheatViolations = 0;
+            pgSecondsRemaining = 40 * 60;
+            totalSecondsRemaining = 90 * 60;
+
+            // Re-shuffle for retry
+            groupPGQuestions = shuffleArrayWithSeed(masterPGQuestions, studentProfile.groupVal + attemptCount * 7);
+            groupEssayQuestions = shuffleArrayWithSeed(masterEssayQuestions, studentProfile.groupVal + attemptCount * 11);
+
+            viewResult.classList.add('hidden');
+            viewExam.classList.remove('hidden');
+            headerExamInfo.classList.remove('hidden');
+
+            renderQuestionNavs();
+            loadPGQuestion(0);
+            startTimers();
+        };
+
+        document.getElementById('btnDownloadJPG').onclick = () => {
+            const certCard = document.getElementById('certificateCard');
+            html2canvas(certCard, {
+                scale: 2,
+                backgroundColor: '#0f172a'
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const link = document.createElement('a');
+                link.download = `Hasil_Uji_Baterai_${studentProfile.name.replace(/\s+/g, '_')}_${studentProfile.classVal}.jpg`;
+                link.href = imgData;
+                link.click();
+            });
+        };
+
+        document.getElementById('btnDownloadPDF').onclick = () => {
+            const { jsPDF } = window.jspdf;
+            const certCard = document.getElementById('certificateCard');
+
+            html2canvas(certCard, { scale: 2, backgroundColor: '#0f172a' }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = 190;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                pdf.setFont("helvetica", "bold");
+                pdf.setFontSize(14);
+                pdf.text("LAPORAN UJIAN PRAKTIK PERAWATAN BATERAI 12V", 105, 15, { align: "center" });
+
+                pdf.addImage(imgData, 'PNG', 10, 25, imgWidth, imgHeight);
+
+                pdf.save(`Laporan_Uji_Baterai_${studentProfile.name.replace(/\s+/g, '_')}_${studentProfile.classVal}.pdf`);
+            });
+        };
+    </script>
+</body>
+</html>
